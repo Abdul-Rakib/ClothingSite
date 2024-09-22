@@ -1,0 +1,131 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #f7fafc;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    gap: 6rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Hide the menu by default on smaller screens */
+  .navbar-menu {
+    display: none;
+  }
+  
+  .navbar-menu-icon {
+    display: none;
+    color: #4b5563;
+    cursor: pointer;
+  }
+  
+  /* Show the menu on larger screens */
+  @media (min-width: 768px) {
+    .navbar-menu {
+      display: flex;
+    }
+
+    .navbar-left {
+      margin: 0rem 5rem;
+    }
+  
+    .navbar-right {
+      margin: 0rem 2rem;
+    }
+  }
+  
+  .navbar-menu.open {
+    display: flex;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #f7fafc;
+    padding: 1rem;
+    width: 50px;
+  }
+  
+  .navbar-icons {
+    display: flex;
+    gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-icon {
+    color: #4b5563;
+  }
+  
+  .navbar-cart {
+    display: flex;
+    align-items: center;
+    background-color: #1f2937;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+  
+  .navbar-cart-text {
+    margin-right: 0.5rem;
+  }
+  
+  /* Add margin between navbar and other content */
+  .navbar + * {
+    margin-top: 3rem;
+  }
+
+/* Bottom Navbar for mobile */
+.bottom-navbar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    justify-content: space-around;
+    padding: 1rem 0;
+    z-index: 10;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+  }
+  
+  /* Show bottom navbar on mobile view */
+  @media (max-width: 425px) {
+    .navbar-menu-icon {
+      display: block;
+    }
+
+    .navbar-menu li{
+        padding: 0.5rem 0rem ;
+    }
+
+    .bottom-navbar {
+      display: flex;
+    }
+  
+    .navbar-right {
+      display: none;
+    }
+  }
+  
+  .bottom-navbar-item {
+    color: #4b5563;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.65rem;
+  }
+  
