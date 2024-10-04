@@ -9,11 +9,20 @@
   .navbar-left {
     display: flex;
     align-items: center;
+    flex: 1; /* Allow the brand name to take available space */
+    justify-content: flex-start; /* Align items to the left */
   }
+  
+  .navbar-title {
+    flex: 1; /* Allow brand name to occupy available space */
+    text-align: center; /* Center the brand name */
+    margin: 0; /* Remove default margin */
+  }
+  
   
   .navbar-menu {
     display: flex;
-    gap: 6rem;
+    gap: 4.5rem;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -22,6 +31,12 @@
   /* Hide the menu by default on smaller screens */
   .navbar-menu {
     display: none;
+  }
+
+  .navbar-menu li a{
+    padding: 0.5rem 1rem ;
+    text-decoration: none;
+    color: black;
   }
   
   .navbar-menu-icon {
@@ -108,9 +123,11 @@
       display: block;
     }
 
-    .navbar-menu li{
+    .navbar-menu li a{
         padding: 0.5rem 0rem ;
+        gap: 1rem;
     }
+    
 
     .bottom-navbar {
       display: flex;

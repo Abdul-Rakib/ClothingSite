@@ -1,4 +1,6 @@
-/* General container and section header styles */
+.homepage {
+    background-color: #f7fafc;;
+}
 .new-this-week-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -35,67 +37,11 @@
   .see-all-button:hover {
     color: #343a40;
   }
-  
-  /* Product card styles */
-  .product-card {
-    background-color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-image {
-    width: 100%;
-    height: 16rem;
-    object-fit: cover;
-    margin-bottom: 1rem;
-  }
-  
-  .product-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  
-  .variant-button {
-    color: #6c757d;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .variant-button:hover {
-    color: #343a40;
-  }
-  
-  .variant-text {
-    font-size: 0.875rem;
-    color: #6c757d;
-  }
-  
-  .product-type {
-    font-size: 0.875rem;
-    color: #6c757d;
-  }
-  
-  .product-name {
-    font-weight: 600;
-    font-size: 1.125rem;
-  }
-  
-  .product-price {
-    font-weight: bold;
-    font-size: 1.125rem;
-    color: #333;
-  }
-  
-  /* Grid layout for products */
   .product-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+    gap: 20px; /* Spacing between product cards */
+}
   
   @media (min-width: 640px) {
     .product-grid {
@@ -113,28 +59,5 @@
     .product-grid {
       grid-template-columns: repeat(4, 1fr);
     }
-  }
-  
-  /* Carousel controls */
-  .carousel-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
-  }
-  
-  .carousel-button {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    margin: 0 0.5rem;
-  }
-  
-  .carousel-icon {
-    color: #6c757d;
-  }
-  
-  .carousel-button:hover .carousel-icon {
-    color: #343a40;
   }
   

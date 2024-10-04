@@ -18,10 +18,11 @@ const BottomNavbar = () => {
           <div className="navbar-menu-icon" onClick={toggleMenu}>
             {menuOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
           </div>
+          <h1 className="navbar-title">Brand Name</h1>
           <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
-            <li>Home</li>
-            <li>Collections</li>
-            <li>New</li>
+            <li> <a href='#'>Home</a></li>
+            <li> <a href='#'>Collection</a></li>
+            <li> <a href='#'>New</a></li>
           </ul>
         </div>
         <div className="navbar-right">

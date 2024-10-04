@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaSearch, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import default1 from '../../assets/Images/default1.jpg'; 
 import default2 from '../../assets/Images/default2.jpg'; 
+import default3 from '../../assets/Images/default3.jpg'; 
+import default4 from '../../assets/Images/default4.jpg'; 
 import './hero.css';
 
 const HeroComponent = () => {
@@ -10,8 +12,8 @@ const HeroComponent = () => {
   const slides = [
     { image: default1, title: 'Jacket Men', price: 'INR 799.00' },
     { image: default2, title: 'Turtle Neck Sweatshirt', price: 'INR 1299.00' },
-    { image: default1, title: 'Cotton T Shirt', price: 'INR 999.00' },
-    { image: default2, title: 'Jeans Men', price: 'INR 1199.00' },
+    { image: default3, title: 'Cotton T Shirt', price: 'INR 999.00' },
+    { image: default4, title: 'Jeans Men', price: 'INR 1199.00' },
   ];
 
   const nextSlide = () => {
