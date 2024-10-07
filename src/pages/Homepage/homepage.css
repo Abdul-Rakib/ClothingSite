@@ -33,6 +33,11 @@
     background: none;
     cursor: pointer;
   }
+  .see-all-button a{
+    color: #333333;
+    text-decoration: none;
+    font-weight: bold ;
+  }
   
   .see-all-button:hover {
     color: #343a40;

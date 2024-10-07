@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { FaSearch, FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import default1 from '../../assets/Images/default1.jpg'; 
 import default2 from '../../assets/Images/default2.jpg'; 
 import default3 from '../../assets/Images/default3.jpg'; 
 import default4 from '../../assets/Images/default4.jpg'; 
 import './hero.css';
 
-const HeroComponent = () => {
+const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const slides = [
@@ -30,7 +31,7 @@ const HeroComponent = () => {
         {/* New Collection and Search Bar in one row */}
         <div className="hero-row">
           <div className="hero-collection">
-            <h1 className="hero-title">NEW<br />COLLECTION</h1>
+            <p className="hero-title">NEW<br />COLLECTION</p>
             <p className="hero-subtitle">Winter 2024</p>
           </div>
           <div className="hero-searchbar">
@@ -48,9 +49,11 @@ const HeroComponent = () => {
           <div className="hero-slides">
             {slides.map((slide, index) => (
               <div key={index} className={`hero-slide ${index === currentSlide ? '' : 'hidden'}`}>
-                <img src={slide.image} alt={slide.title} className="hero-slide-image" />
-                <p className="hero-slide-title">{slide.title}</p>
-                <p className="hero-slide-price">{slide.price}</p>
+                <Link to="/products" className="hero-slide-link">
+                  <img src={slide.image} alt={slide.title} className="hero-slide-image" />
+                  <p className="hero-slide-title">{slide.title}</p>
+                  <p className="hero-slide-price">{slide.price}</p>
+                </Link>
               </div>
             ))}
           </div>
@@ -64,7 +67,7 @@ const HeroComponent = () => {
 
         {/* Go To Shop Button */}
         <button className="hero-shop-button">
-          Go To Shop
+          <Link to='/products' className="hero-shop-link">Go To Shop</Link>
           <FaArrowRight className="hero-shop-icon" />
         </button>
       </div>
@@ -72,4 +75,4 @@ const HeroComponent = () => {
   );
 };
 
-export default HeroComponent;
+export default Hero;

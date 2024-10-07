@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import ProductCard from '../../components/ProductCard/productCard';
 import './homepage.css';
+import Hero from '../../components/Hero/hero';
 import { products } from '../../db/products';
 
 const Homepage = () => {
 
   return (
+    <>
+    <Hero/>
     <div className="homepage">
     <div className="new-this-week-container">
       <div className="section-header">
@@ -13,7 +17,9 @@ const Homepage = () => {
           NEW<br />THIS WEEK
           <span className="product-count">(50)</span>
         </h2>
-        <button className="see-all-button">See All</button>
+        <button className="see-all-button">
+          <Link to='/products'>See All</Link>
+        </button>
       </div>
       
       <div className="product-grid">
@@ -21,6 +27,7 @@ const Homepage = () => {
       </div>
     </div>
     </div>
+    </>
   );
 };
 

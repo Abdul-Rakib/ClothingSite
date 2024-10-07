@@ -25,7 +25,7 @@ const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
 
 const CheckoutButton = ({ onCheckout }) => (
   <button className="checkout-button" onClick={onCheckout}>
-    CHECKOUT
+    <a href='/checkout'>CHECKOUT</a>
   </button>
 );
 

@@ -40,9 +40,9 @@ export default function ProductPage() {
     <div className="product-container">
       <div className="image-gallery">
         <div className="main-image-container">
-          <img 
-            src={product.images[currentImageIndex]} 
-            alt={product.name} 
+          <img
+            src={product.images[currentImageIndex]}
+            alt={product.name}
             className="main-image"
           />
         </div>
@@ -63,7 +63,7 @@ export default function ProductPage() {
         <p className="product-price">INR {product.price}</p>
         <p className="tax-info">MRP incl. of all taxes</p>
         <p className="product-description">{product.description}</p>
-        
+
         <div className="color-selection">
           <p className="option-label">Color</p>
           <div className="color-options">
@@ -77,7 +77,7 @@ export default function ProductPage() {
             ))}
           </div>
         </div>
-        
+
         <div className="size-selection">
           <p className="option-label">Size</p>
           <div className="size-options">
@@ -92,7 +92,7 @@ export default function ProductPage() {
           </div>
           <span className="measurement-guide">FIND YOUR SIZE | MEASUREMENT GUIDE</span>
         </div>
-        
+
         <button className="add-to-cart-button">ADD TO CART</button>
       </div>
     </div>

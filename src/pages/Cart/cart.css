@@ -190,7 +190,11 @@
   .checkout-button:hover {
     background: #0e1a2f; /* Darker shade on hover */
   }
-  
+  .checkout-button a{
+    text-decoration: none;
+    color: white;
+   font-weight: bold;
+  }
   /* Responsive styles */
   @media (max-width: 768px) {
     .cart-container {

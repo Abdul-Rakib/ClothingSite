@@ -104,10 +104,21 @@
     display: flex;
     align-items: center;
   }
+  .hero-shop-button a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
   
   .hero-shop-icon {
     margin-left: 0.5rem;
   }
+  .hero-slide-link {
+    color: #333333; /* Ensure the text color is white */
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
   
   /* Responsive Styles */
   @media (max-width: 768px) {

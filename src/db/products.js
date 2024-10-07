@@ -5,7 +5,7 @@ import default4 from '../assets/images/default4.jpg';
 
 export const products = [
   {
-    id: 1, // Unique ID for the product
+    id: '1', // Unique ID for the product
     images: [default1, default2, default3], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Basic Slim Fit T-Shirt',
@@ -19,8 +19,8 @@ export const products = [
     category: 'T-Shirts',
   },
   {
-    id: 2, // Unique ID for the product
-    images: [default1, default2, default3], // Multiple images for the product
+    id: '2', // Unique ID for the product
+    images: [default2, default1, default3], // Multiple images for the product
     type: 'Crewneck T-Shirt',
     name: 'Basic Heavy Weight T-Shirt',
     price: 299,
@@ -33,8 +33,8 @@ export const products = [
     category: 'T-Shirts',
   },
   {
-    id: 3, // Unique ID for the product
-    images: [default1, default2, default3], // Multiple images for the product
+    id: '3', // Unique ID for the product
+    images: [default3, default2, default1], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Full Sleeve Zipper',
     price: 399,
@@ -47,7 +47,7 @@ export const products = [
     category: 'T-Shirts',
   },
   {
-    id: 4, // Unique ID for the product
+    id: '4', // Unique ID for the product
     images: [default1, default2, default3], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Casual Full Sleeve Shirt',
@@ -61,8 +61,8 @@ export const products = [
     category: 'Shirts',
   },
   {
-    id: 5, // Unique ID for the product
-    images: [default1, default2, default3], // Multiple images for the product
+    id: '5', // Unique ID for the product
+    images: [default2, default1, default3], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Casual Full Sleeve Shirt - Black',
     price: 499,
@@ -75,8 +75,8 @@ export const products = [
     category: 'Shirts',
   },
   {
-    id: 6, // Unique ID for the product
-    images: [default1, default2, default3], // Multiple images for the product
+    id: '6', // Unique ID for the product
+    images: [default3, default2, default1], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Stylish Full Sleeve T-Shirt',
     price: 399,
@@ -89,8 +89,8 @@ export const products = [
     category: 'T-Shirts',
   },
   {
-    id: 7, // Unique ID for the product
-    images: [default1, default2, default3], // Multiple images for the product
+    id: '7', // Unique ID for the product
+    images: [default2, default1, default3], // Multiple images for the product
     type: 'Crewneck T-Shirt',
     name: 'Comfort Crewneck T-Shirt',
     price: 299,
@@ -103,7 +103,7 @@ export const products = [
     category: 'T-Shirts',
   },
   {
-    id: 8, // Unique ID for the product
+    id: '8', // Unique ID for the product
     images: [default1, default2, default3], // Multiple images for the product
     type: 'Cotton T-Shirt',
     name: 'Classic Basic T-Shirt',

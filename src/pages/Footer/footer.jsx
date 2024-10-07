@@ -1,6 +1,7 @@
 // Footer.jsx
 import React from 'react';
 import './footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = ()=>{
   return (
@@ -10,19 +11,19 @@ const Footer = ()=>{
           <div className= 'col'>
             <h3>Our Policies</h3>
             <ul>
-              <li><a href="/">Terms Condition</a></li>
-              <li><a href="/privacy-policy">Privacy Policy</a></li>
-              <li><a href="/refund-policy">Refund Policy</a></li>
-              <li><a href="/shipping-policy">Shipping Policy</a></li>
+              <li><Link to="/terms-conditions">Terms Condition</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="/refund-policy">Refund Policy</Link></li>
+              <li><Link to="/shipping-policy">Shipping Policy</Link></li>
             </ul>
           </div>
           <div className= 'col'>
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/products">All Products</a></li>
-              <li><a href="/wishlist">My Wishlist</a></li>
-              <li><a href="/contact">Contact Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/wishlist">My Wishlist</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
             </ul>
           </div>
           <div className='col'>
