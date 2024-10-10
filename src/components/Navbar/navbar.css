@@ -1,9 +1,12 @@
+/* Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
   background-color: #f7fafc;
+  position: relative;
+  z-index: 20;
 }
 
 .navbar-left {
@@ -17,6 +20,9 @@
   flex: 1;
   text-align: center;
   margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .navbar-menu {
@@ -34,6 +40,12 @@
   padding: 0.5rem 1rem;
   text-decoration: none;
   color: black;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu li a:hover {
+  color: #1f2937;
 }
 
 .navbar-menu-icon {
@@ -57,6 +69,7 @@
   }
 }
 
+/* Mobile menu open state */
 .navbar-menu.open {
   display: flex;
   flex-direction: column;
@@ -66,8 +79,11 @@
   background-color: #f7fafc;
   padding: 1rem;
   width: 100%;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
+/* Navbar Icons */
 .navbar-icons {
   display: flex;
   gap: 2rem;
@@ -76,10 +92,20 @@
   padding: 0;
 }
 
-.navbar-icon {
-  color: #4b5563;
+.navbar-icons li {
+  display: flex;
+  align-items: center;
 }
 
+.navbar-icon {
+  transition: color 0.2s ease;
+}
+
+.navbar-icon:hover {
+  color: #1f2937;
+}
+
+/* Cart Button */
 .navbar-cart {
   display: flex;
   align-items: center;
@@ -87,6 +113,7 @@
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
+  margin-left: 0.5rem;
 }
 
 .navbar-cart-text {
@@ -104,6 +131,48 @@
   color: white;
 }
 
+/* Dashboard Button */
+.navbar-dashboard {
+  display: flex;
+  align-items: center;
+  background-color: #1f2937;
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 9999px;
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-dashboard-text {
+  margin-right: 0.5rem;
+}
+
+.navbar-dashboard:hover {
+  color: white;
+}
+
+/* Login Button */
+.navbar-login {
+  display: flex;
+  align-items: center;
+  background-color: #1f2937;
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 9999px;
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-login-text {
+  margin-right: 0.5rem;
+}
+
+.navbar-login:hover {
+  color: white;
+}
+
+
+/* Spacing to avoid overlapping other elements */
 .navbar + * {
   margin-top: 3rem;
 }
@@ -135,6 +204,18 @@
 .bottom-navbar-item a {
   text-decoration: none;
   color: inherit;
+}
+
+.bottom-navbar-item a:hover {
+  color: #1f2937;
+}
+
+.bottom-navbar-login-text {
+  color: #ffffff;
+  background-color: #1F2937;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 35px;
 }
 
 /* Show bottom navbar on mobile view */

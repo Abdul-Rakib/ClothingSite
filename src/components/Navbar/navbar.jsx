@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
-import { MdCall, MdFavorite, MdPerson } from 'react-icons/md';
+import { FaShoppingCart, FaBars, FaTimes, FaUser, FaHeart, FaPhoneAlt, FaHome } from 'react-icons/fa'; // Import FaHome
 import './Navbar.css';
+import { useVariableContext } from '../../context/VariableContext';
 
 const BottomNavbar = () => {
+  const { isLoggedIn } = useVariableContext();
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -28,14 +30,26 @@ const BottomNavbar = () => {
         </div>
         <div className="navbar-right">
           <ul className="navbar-icons">
-            <li><Link to='/wishlist'><MdFavorite className="navbar-icon" size={35} /></Link></li>
+            <li><Link to='/wishlist'><FaHeart className="navbar-icon" size={35} /></Link></li>
             <li className="navbar-cart">
               <Link to='/cart' className="cart-link">
                 <span className="navbar-cart-text">Cart</span>
                 <FaShoppingCart size={20} />
               </Link>
             </li>
-            <li><Link to='/dashboard'><MdPerson className="navbar-icon" size={35} /></Link></li>
+            <li>
+              {isLoggedIn ? (
+                <Link to='/dashboard' className="navbar-dashboard">
+                  <span className="navbar-dashboard-text">Dashboard</span>
+                  <FaUser className="navbar-icon" size={25} />
+                </Link>
+              ) : (
+                <Link to='/login' className="navbar-login">
+                  <span className="navbar-login-text">Login</span>
+                  <FaUser className="navbar-icon" size={25} />
+                </Link>
+              )}
+            </li>
           </ul>
         </div>
       </nav>
@@ -43,28 +57,35 @@ const BottomNavbar = () => {
       {/* Bottom Navbar for Mobile */}
       <nav className="bottom-navbar">
         <div className="bottom-navbar-item">
+          <Link to='/'>
+            <FaHome size={25} /> {/* Home Icon */}
+          </Link>
+        </div>
+        <div className="bottom-navbar-item">
           <Link to='/contact'>
-            <MdCall size={25} />
-            {/* <span>Contact</span> */}
+            <FaPhoneAlt size={25} />
           </Link>
         </div>
         <div className="bottom-navbar-item">
           <Link to='/wishlist'>
-            <MdFavorite size={25} />
-            {/* <span>Wishlist</span> */}
+            <FaHeart size={25} />
           </Link>
         </div>
         <div className="bottom-navbar-item">
           <Link to='/cart'>
             <FaShoppingCart size={25} />
-            {/* <span>Cart</span> */}
           </Link>
         </div>
         <div className="bottom-navbar-item">
-          <Link to='/profile'>
-            <MdPerson size={25} />
-            {/* <span>Profile</span> */}
-          </Link>
+          {isLoggedIn ? (
+            <Link to='/profile'>
+              <FaUser size={25} />
+            </Link>
+          ) : (
+            <Link to='/login'>
+              <span className='bottom-navbar-login-text'>Login</span>
+            </Link>
+          )}
         </div>
       </nav>
     </>

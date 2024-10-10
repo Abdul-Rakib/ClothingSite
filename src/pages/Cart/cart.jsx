@@ -1,78 +1,20 @@
-import React, { useState } from 'react';
-import { products } from '../../db/products';
+import React from 'react';
+import CartItem from './cartItems';
+import CartSummary from './cartSummary';
+import Coupon from './coupon';
 import './cart.css';
-
-const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
-  return (
-    <div className="cart-item">
-      <img src={item.product.images[0]} alt={item.product.name} />
-      <div className="item-details">
-        <h3 className='item-type'>{item.product.type}</h3>
-        <span className="product-name">{item.product.name}</span>
-        <div className="quantity-controls">
-          <button onClick={() => onDecrease(item.product.id)}>-</button>
-          <span>{item.quantity}</span>
-          <button onClick={() => onIncrease(item.product.id)}>+</button>
-        </div>
-      </div>
-      <div className="item-price">INR {item.product.price.toFixed(2)}</div>
-      <button onClick={() => onRemove(item.product.id)} className="remove-button">
-        ×
-      </button>
-    </div>
-  );
-};
-
-const CheckoutButton = ({ onCheckout }) => (
-  <button className="checkout-button" onClick={onCheckout}>
-    <a href='/checkout'>CHECKOUT</a>
-  </button>
-);
+import { useVariableContext } from '../../context/VariableContext';
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([
-    { product: products[0], quantity: 1 },
-    { product: products[1], quantity: 1 },
-    { product: products[2], quantity: 1 },
-  ]);
-
-  const [shippingMethod, setShippingMethod] = useState('Standard-Delivery- €5.00');
-  const [couponCode, setCouponCode] = useState('');
-  const [discount, setDiscount] = useState(0);
-
-  const increaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.product.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-  };
-
-  const decreaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.product.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    ));
-  };
-
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.product.id !== id));
-  };
+  const { cartItems, setCartItems, couponDiscount } = useVariableContext();
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  const shippingCost = 5.00; // Fixed shipping cost
-  const totalPrice = subtotal + shippingCost - discount;
+  const shippingCost = 0.00;
+  const totalPrice = subtotal + shippingCost - couponDiscount;
 
   const handleCheckout = () => {
     alert("Proceeding to checkout...");
-    // Add your checkout logic here
-  };
-
-  const applyCoupon = () => {
-    // Example: if coupon code is "DISCOUNT10", apply a discount of INR 10
-    if (couponCode === "DISCOUNT10") {
-      setDiscount(10);
-    } else {
-      alert("Invalid coupon code");
-    }
   };
 
   return (
@@ -84,43 +26,29 @@ export default function Cart() {
             <CartItem
               key={item.product.id}
               item={item}
-              onIncrease={increaseQuantity}
-              onDecrease={decreaseQuantity}
-              onRemove={removeItem}
+              setCartItems={setCartItems} // Pass setCartItems to CartItem
             />
           ))}
         </div>
-        <button className="back-to-shop">← Back to shop</button>
+        <button className="back-to-shop">
+          <span className="back-to-shop-text">
+            <a href="/">← Back to shop</a>
+          </span>
+        </button>
       </div>
-      <div className="cart-summary">
-        <h2>Summary</h2>
-        <div className="summary-row">
-          <span>ITEMS {totalItems}</span>
-          <span>INR {subtotal.toFixed(2)}</span>
-        </div>
-        <div className="summary-row">
-          <span>SHIPPING</span>
-          <span>INR {shippingCost.toFixed(2)}</span>
-        </div>
-        <div className="summary-row">
-          <span>DISCOUNT</span>
-          <span>INR {discount.toFixed(2)}</span>
-        </div>
-        <div className="summary-row total">
-          <span>TOTAL</span>
-          <span>INR {totalPrice.toFixed(2)}</span>
-        </div>
-        <div className="coupon-section">
-          <input
-            type="text"
-            value={couponCode}
-            onChange={(e) => setCouponCode(e.target.value)}
-            placeholder="Coupon code"
-            className="coupon-input"
-          />
-          <button onClick={applyCoupon} className="apply-coupon-button">Apply</button>
-        </div>
-        <CheckoutButton onCheckout={handleCheckout} />
+
+      <div className="cart-summary-container">
+        <CartSummary
+          totalItems={totalItems}
+          subtotal={subtotal}
+          shippingCost={shippingCost}
+          discount={couponDiscount}
+          totalPrice={totalPrice}
+        />
+        <Coupon />
+        <button className="checkout-button" onClick={handleCheckout}>
+          <a href="/checkout">CHECKOUT</a>
+        </button>
       </div>
     </div>
   );

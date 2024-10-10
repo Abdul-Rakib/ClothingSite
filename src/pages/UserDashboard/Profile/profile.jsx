@@ -1,5 +1,5 @@
 import React from 'react';
-import Order from '../../Orders/orders';
+import Order from '../Orders/orders';
 import { FaUserCircle } from 'react-icons/fa'; // Import the profile icon
 import './Profile.css';
 
