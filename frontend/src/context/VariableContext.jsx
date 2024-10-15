@@ -6,7 +6,7 @@ const VariableContext = createContext();
 // Create a provider component
 export const VariableContextProvider = ({ children }) => {
   const host = "http://localhost:8080";
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [selectedColor, setSelectedColor] = useState(null); // Initialize to null
   const [selectedSize, setSelectedSize] = useState(null);   // Initialize to null

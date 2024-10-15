@@ -2,9 +2,9 @@ export const products = [
   {
     id: '1',
     images: [
-      '/assets/images/default1.jpg',
-      '/assets/images/default2.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Basic Slim Fit T-Shirt',
@@ -20,9 +20,9 @@ export const products = [
   {
     id: '2',
     images: [
-      '/assets/images/default2.jpg',
-      '/assets/images/default1.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Crewneck T-Shirt',
     name: 'Basic Heavy Weight T-Shirt',
@@ -38,9 +38,9 @@ export const products = [
   {
     id: '3',
     images: [
-      '/assets/images/default3.jpg',
-      '/assets/images/default2.jpg',
-      '/assets/images/default1.jpg',
+      '/assets/Images/default3.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default1.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Full Sleeve Zipper',
@@ -56,9 +56,9 @@ export const products = [
   {
     id: '4',
     images: [
-      '/assets/images/default1.jpg',
-      '/assets/images/default2.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Casual Full Sleeve Shirt',
@@ -74,9 +74,9 @@ export const products = [
   {
     id: '5',
     images: [
-      '/assets/images/default2.jpg',
-      '/assets/images/default1.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Casual Full Sleeve Shirt - Black',
@@ -92,9 +92,9 @@ export const products = [
   {
     id: '6',
     images: [
-      '/assets/images/default3.jpg',
-      '/assets/images/default2.jpg',
-      '/assets/images/default1.jpg',
+      '/assets/Images/default3.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default1.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Stylish Full Sleeve T-Shirt',
@@ -110,9 +110,9 @@ export const products = [
   {
     id: '7',
     images: [
-      '/assets/images/default2.jpg',
-      '/assets/images/default1.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Crewneck T-Shirt',
     name: 'Comfort Crewneck T-Shirt',
@@ -128,9 +128,9 @@ export const products = [
   {
     id: '8',
     images: [
-      '/assets/images/default1.jpg',
-      '/assets/images/default2.jpg',
-      '/assets/images/default3.jpg',
+      '/assets/Images/default1.jpg',
+      '/assets/Images/default2.jpg',
+      '/assets/Images/default3.jpg',
     ],
     type: 'Cotton T-Shirt',
     name: 'Classic Basic T-Shirt',

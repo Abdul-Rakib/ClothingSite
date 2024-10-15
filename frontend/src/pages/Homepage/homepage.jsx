@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard/productCard';
 import './homepage.css';
 import Hero from '../../components/Hero/hero';
-import { products } from '../../db/products';
+import useGetAllProducts from '../../hooks/useGetAllProducts'; // Import the custom hook
 
 const Homepage = () => {
-  // Calculate the total number of products
-  const totalProducts = products.length;
+  const { products, loading, error } = useGetAllProducts(); // Use the hook to fetch products
+
+  // Display only the first 4 products
+  const displayedProducts = products.slice(0, 4);
 
   return (
     <>
@@ -17,7 +19,7 @@ const Homepage = () => {
           <div className="section-header">
             <h2 className="section-title">
               NEW<br />THIS WEEK
-              <span className="product-count">({totalProducts})</span> {/* Dynamic product count */}
+              <span className="product-count">({loading ? 0 : products.length})</span> {/* Dynamic product count */}
             </h2>
             <button className="see-all-button">
               <Link to='/products'>See All</Link>
@@ -25,7 +27,13 @@ const Homepage = () => {
           </div>
 
           <div className="product-grid">
-            <ProductCard products={products} />
+            {loading ? (
+              <p>Loading products...</p>
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              <ProductCard products={displayedProducts} />
+            )}
           </div>
         </div>
       </div>
