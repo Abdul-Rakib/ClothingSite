@@ -1,5 +1,6 @@
 import React from 'react';
 import './productCard.css';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ products }) => {
   console.log(products);
@@ -7,7 +8,7 @@ const ProductCard = ({ products }) => {
   return (
     <>
       {products.map((product, index) => (
-        <a key={index} href={`/products/${product.id}`} className="product-card-link">
+        <Link key={index} to={`/products/${product.id}`} className="product-card-link">
           <div className="product-card">
             <div className="product-card-image-box">
               <img
@@ -34,7 +35,7 @@ const ProductCard = ({ products }) => {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </>
   );

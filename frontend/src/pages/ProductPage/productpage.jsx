@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { products } from '../../db/products';
 import './productpage.css';
 import { useVariableContext } from '../../context/VariableContext';
+import { useGetProduct } from '../../hooks/useGetProduct';
 
 const ColorOption = ({ color, isSelected, handleClick }) => (
   <button
@@ -24,8 +24,7 @@ const SizeOption = ({ size, isSelected, handleClick }) => (
 export default function ProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products.find(prod => prod.id === id);
-
+  const { product, loading, error } = useGetProduct(id);
   const {
     cartItems,
     setCartItems,
@@ -35,12 +34,8 @@ export default function ProductPage() {
     setSelectedSize
   } = useVariableContext();
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isInCart, setIsInCart] = useState(false); // Track if product is in the cart
+  const [isInCart, setIsInCart] = useState(false);
 
   const handleThumbnailClick = (index) => {
     setCurrentImageIndex(index);
@@ -48,7 +43,6 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (!isInCart) {
-      // Add product to the cart
       const newItem = {
         ...product,
         selectedColor,
@@ -56,17 +50,27 @@ export default function ProductPage() {
         quantity: 1,
       };
       setCartItems((prevItems) => [...prevItems, newItem]);
-      setIsInCart(true); // Set product as added to the cart
+      setIsInCart(true);
     } else {
-      // Navigate to the cart if product is already in the cart
       navigate('/cart');
     }
   };
 
-  // Log cart items after update
   useEffect(() => {
     console.log("Cart updated:", cartItems);
   }, [cartItems]);
+
+  if (loading) {
+    return <div>Loading product...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading product: {error}</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   return (
     <div className="product-container">
@@ -84,9 +88,7 @@ export default function ProductPage() {
               key={index}
               src={image}
               alt={`${product.name} thumbnail ${index + 1}`}
-              className={`thumbnail ${
-                currentImageIndex === index ? 'selected' : ''
-              }`}
+              className={`thumbnail ${currentImageIndex === index ? 'selected' : ''}`}
               onClick={() => handleThumbnailClick(index)}
             />
           ))}
