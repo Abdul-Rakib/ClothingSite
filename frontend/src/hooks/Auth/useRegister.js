@@ -24,7 +24,7 @@ export const useRegister = () => {
             setRegisterError(null);
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
-            navigate("/");  // Redirect to home or dashboard after registration
+            navigate("/login");
         } catch (error) {
             setRegisterError(error.message);
             console.log(error);

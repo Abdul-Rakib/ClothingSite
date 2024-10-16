@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import Product from './models/products.js'; // Model
-import { products } from './data/index.js'; // Sample data
-import productsRoutes from './routes/product.js'; // Import the routes correctly
+import Product from './models/products.js';
+import { products } from './data/index.js';
+import productsRoutes from './routes/product.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config(); // Load environment variables
 
@@ -14,7 +15,8 @@ app.use(cors()); // Enable CORS
 app.use(express.json()); // Middleware to parse JSON
 
 // Use product routes
-app.use('/products', productsRoutes); // Corrected the route
+app.use('/products', productsRoutes);
+app.use('/auth', authRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {

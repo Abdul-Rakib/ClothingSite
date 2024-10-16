@@ -13,11 +13,8 @@ const Register = () => {
 
     const {register, registerError} = useRegister();
 
-    // const handleRegister = async () => {
-    //     await register(name, email, mobile, password);
-    // }
     const handleRegister = async (e) => {
-        e.preventDefault();  // Ensure the form is not submitted via the URL (default GET behavior)
+        e.preventDefault();
         await register(name, email, mobile, password);
     };
 
@@ -26,7 +23,7 @@ const Register = () => {
         <div className="parent-container">
             <div className="auth-container">
                 <h1>Register</h1>
-                <form onSubmit={(e)=>{e.preventDefault()}}>
+                <form onSubmit={handleRegister}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Your Name" required 
@@ -49,7 +46,7 @@ const Register = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Confirm Password</label>
+                        <label htmlFor="password">Enter Password</label>
                         <input type="password" id="password" name="password" placeholder="Password" required 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

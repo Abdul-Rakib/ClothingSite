@@ -1,17 +1,18 @@
 import { createContext, useContext, useState } from "react";
 
-// Create the CartContext
 const VariableContext = createContext();
 
-// Create a provider component
 export const VariableContextProvider = ({ children }) => {
   const host = "http://localhost:8080";
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // console.log(localStorage.user);
+  const log = localStorage.isLoggedIn;
+  const [isLoggedIn, setIsLoggedIn] = useState(log);
+  
   const [cartItems, setCartItems] = useState([]);
-  const [selectedColor, setSelectedColor] = useState(null); // Initialize to null
-  const [selectedSize, setSelectedSize] = useState(null);   // Initialize to null
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
-  const [couponDiscount, setCouponDiscount] = useState(0);   // Initialize to null
+  const [couponDiscount, setCouponDiscount] = useState(0);
 
 
   return (
@@ -35,7 +36,6 @@ export const VariableContextProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the CartContext
 export const useVariableContext = () => {
   return useContext(VariableContext);
 };
