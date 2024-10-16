@@ -9,9 +9,6 @@ export const VariableContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(log);
   
   const [cartItems, setCartItems] = useState([]);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-
   const [couponDiscount, setCouponDiscount] = useState(0);
 
 
@@ -23,10 +20,6 @@ export const VariableContextProvider = ({ children }) => {
         setIsLoggedIn,
         cartItems,
         setCartItems,
-        selectedColor,
-        setSelectedColor,
-        selectedSize,
-        setSelectedSize,
         couponDiscount,
         setCouponDiscount,
       }}

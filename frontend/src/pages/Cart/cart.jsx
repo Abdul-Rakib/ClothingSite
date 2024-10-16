@@ -4,6 +4,7 @@ import CartSummary from './cartSummary';
 import Coupon from './coupon';
 import './cart.css';
 import { useVariableContext } from '../../context/VariableContext';
+import ShippingAddress from './shippingAddresses';
 
 export default function Cart() {
     const { cartItems, setCartItems, couponDiscount } = useVariableContext();
@@ -28,7 +29,7 @@ export default function Cart() {
 
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cartItems.reduce((sum, item) => item ? sum + item.price * item.quantity : sum, 0);
-    const shippingCost = totalItems!= 0? 99 : 0;
+    const shippingCost = totalItems != 0 ? 99 : 0;
     const totalPrice = subtotal + shippingCost - couponDiscount;
 
     const handleCheckout = () => {
@@ -59,6 +60,7 @@ export default function Cart() {
             </div>
 
             <div className="cart-summary-container">
+                <ShippingAddress />
                 <CartSummary
                     totalItems={totalItems}
                     subtotal={subtotal}
@@ -66,11 +68,11 @@ export default function Cart() {
                     discount={couponDiscount}
                     totalPrice={totalPrice}
                 />
-                <Coupon />
                 <button className="checkout-button" onClick={handleCheckout}>
-                    <a href="/checkout">CHECKOUT</a>
+                    <a href="/checkout">MAKE PAYMENT</a>
                 </button>
             </div>
+
         </div>
     );
 }

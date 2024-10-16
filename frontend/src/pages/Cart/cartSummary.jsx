@@ -1,5 +1,6 @@
 import React from 'react';
 import './cart.css';
+import Coupon from './coupon';
 
 const CartSummary = ({ totalItems, subtotal, shippingCost, discount, totalPrice }) => {
   return (
@@ -21,6 +22,7 @@ const CartSummary = ({ totalItems, subtotal, shippingCost, discount, totalPrice 
         <span>TOTAL</span>
         <span>INR {totalPrice.toFixed(2)}</span>
       </div>
+      <Coupon/>
     </div>
   );
 };

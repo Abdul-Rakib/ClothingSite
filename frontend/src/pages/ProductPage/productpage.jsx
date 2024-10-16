@@ -1,99 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import './productpage.css';
 import { useVariableContext } from '../../context/VariableContext';
 import { useGetProduct } from '../../hooks/useGetProduct';
-
-const ColorOption = ({ color, isSelected, handleClick }) => (
-  <button
-    onClick={handleClick}
-    className={`color-option ${isSelected ? 'selected' : ''}`}
-    style={{ backgroundColor: color }}
-  />
-);
-
-const SizeOption = ({ size, isSelected, handleClick }) => (
-  <button
-    onClick={handleClick}
-    className={`size-option ${isSelected ? 'selected' : ''}`}
-  >
-    {size}
-  </button>
-);
+import { useSaveCartItem } from '../../hooks/usePostCart';
+import ColorOption from './colorOption';
+import SizeOption from './sizeOption';
+import ImageGallery from './imageGallery';
 
 export default function ProductPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { product, loading, error } = useGetProduct(id);
-  const {
-    cartItems,
-    setCartItems,
-    selectedColor,
-    setSelectedColor,
-    selectedSize,
-    setSelectedSize
-  } = useVariableContext();
+  const { saveCartItem, loading: savingLoading, error: savingError } = useSaveCartItem();
+  const { cartItems, setCartItems } = useVariableContext();
+  const navigate = useNavigate(); // Initialize useNavigate
 
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleThumbnailClick = (index) => {
     setCurrentImageIndex(index);
   };
 
-  const handleAddToCart = () => {
-    if (!isInCart) {
-      const newItem = {
-        ...product,
-        selectedColor,
-        selectedSize,
-        quantity: 1,
-      };
+  const handleAddToCart = async () => {
+    setErrorMsg(''); // Clear previous error message
+
+    if (!selectedColor || !selectedSize) {
+      setErrorMsg('Please select both a color and size before adding to the cart.');
+      return;
+    }
+
+    const newItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      size: selectedSize,
+      color: selectedColor,
+      category: product.category,
+      description: product.description,
+      images: product.images,
+      isInCart: true,
+    };
+
+    await saveCartItem(newItem);
+    
+    if (savingError) {
+      setErrorMsg(savingError); // Display error message from saveCartItem
+    } else {
       setCartItems((prevItems) => [...prevItems, newItem]);
       setIsInCart(true);
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (isInCart) {
+      navigate('/cart'); // Redirect to the /cart page
     } else {
-      navigate('/cart');
+      handleAddToCart(); // Call the function to add to cart
     }
   };
 
   useEffect(() => {
-    console.log("Cart updated:", cartItems);
+    if (cartItems.length) {
+      console.log("Cart updated:", cartItems);
+    }
   }, [cartItems]);
 
-  if (loading) {
-    return <div>Loading product...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading product: {error}</div>;
-  }
-
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  if (loading) return <div>Loading product...</div>;
+  if (error) return <div>Error loading product: {error}</div>;
+  if (!product) return <div>Product not found</div>;
 
   return (
     <div className="product-container">
-      <div className="image-gallery">
-        <div className="main-image-container">
-          <img
-            src={product.images[currentImageIndex]}
-            alt={product.name}
-            className="main-image"
-          />
-        </div>
-        <div className="thumbnail-images">
-          {product.images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`${product.name} thumbnail ${index + 1}`}
-              className={`thumbnail ${currentImageIndex === index ? 'selected' : ''}`}
-              onClick={() => handleThumbnailClick(index)}
-            />
-          ))}
-        </div>
-      </div>
+      <ImageGallery
+        images={product.images}
+        currentImageIndex={currentImageIndex}
+        onThumbnailClick={handleThumbnailClick}
+      />
       <div className="product-details">
         <h1 className="product-title">{product.name}</h1>
         <p className="product-price">INR {product.price}</p>
@@ -126,11 +113,21 @@ export default function ProductPage() {
               />
             ))}
           </div>
-          <span className="measurement-guide">FIND YOUR SIZE | MEASUREMENT GUIDE</span>
         </div>
 
-        <button className="add-to-cart-button" onClick={handleAddToCart}>
-          {isInCart ? 'Go to Cart' : 'Add to Cart'}
+        {/* Error message display */}
+        {(errorMsg || savingError) && (
+          <div className="error-message">
+            {errorMsg || savingError} {/* Display error message if present */}
+          </div>
+        )}
+
+        <button
+          className="add-to-cart-button"
+          onClick={handleButtonClick} // Use the new click handler
+          disabled={savingLoading}
+        >
+          {savingLoading ? 'Adding...' : (isInCart ? 'Go to Cart' : 'Add to Cart')}
         </button>
       </div>
     </div>
