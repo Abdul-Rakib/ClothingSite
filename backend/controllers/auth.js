@@ -1,4 +1,11 @@
 import User from "../models/user.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const register = async (req, res) => {
     try {
@@ -6,25 +13,34 @@ export const register = async (req, res) => {
 
         const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ message: 'User already exists', existingUser });
         }
 
         const userCount = await User.countDocuments();
         const newUserId = `${userCount + 1}`;
 
-        const user = new User({
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create a new user
+        const newUser = new User({
             id: newUserId,
             name,
             email,
             mobile,
-            password, // Assuming you're storing the password as is
+            password: hashedPassword,
         });
 
-        await user.save();
+        await newUser.save();
 
+        // Generate JWT
+        const token = jwt.sign({ userId: newUser.id, email: newUser.email }, JWT_SECRET, { expiresIn: '1d' });
+
+        // Send response with the token
         res.status(201).json({
             message: 'User registered successfully',
-            user: { id: user.id, name: user.name, email: user.email },
+            user: newUser,
+            token,
         });
 
     } catch (error) {
@@ -42,13 +58,19 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
-        if (user.password !== password) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
+        // Generate JWT token
+        const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
+
+        // Send the response with token
         res.status(200).json({
             message: 'Login successful',
-            user: { id: user.id, name: user.name, email: user.email },
+            user,
+            token,
         });
 
     } catch (error) {

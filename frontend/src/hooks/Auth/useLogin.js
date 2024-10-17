@@ -17,11 +17,14 @@ export const useLogin = () => {
                 body: JSON.stringify({email, password}),
             });
             const data = await response.json();
+            console.log(data);
+            
             if (!response.ok) {
                 setLoginError(data.message);
                 return;
             }
             setLoginError(null);
+            localStorage.setItem("isLoggedIn", true);
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
             navigate("/");

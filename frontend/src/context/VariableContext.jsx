@@ -4,9 +4,11 @@ const VariableContext = createContext();
 
 export const VariableContextProvider = ({ children }) => {
   const host = "http://localhost:8080";
-  // console.log(localStorage.user);
-  const log = localStorage.isLoggedIn;
-  const [isLoggedIn, setIsLoggedIn] = useState(log);
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true";
+  });
   
   const [cartItems, setCartItems] = useState([]);
   const [couponDiscount, setCouponDiscount] = useState(0);
