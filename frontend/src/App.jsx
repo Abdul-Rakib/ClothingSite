@@ -17,6 +17,7 @@ import Homepage from './pages/Homepage/homepage';
 import ProductPage from './pages/ProductPage/productpage';
 import Cart from './pages/Cart/cart';
 import Checkout from './pages/Checkout/checkout';
+import Confirmation from './pages/confirmationPage/confirmation';
 import Dashboard from './pages/UserDashboard/dashboard';
 import NotFound from './components/ErrorPage/notfound';
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} /> {/* Catch-all for 404 */}
       </Routes>

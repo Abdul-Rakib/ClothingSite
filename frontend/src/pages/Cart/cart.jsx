@@ -1,17 +1,16 @@
-// Cart.js
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import CartItem from './cartItems';
 import CartSummary from './cartSummary';
-import Coupon from './coupon';
 import './cart.css';
 import { useVariableContext } from '../../context/VariableContext';
-import ShippingAddress from './shippingAddresses';
 import useGetCartItems from '../../hooks/useGetCartItems';
+import { usePostOrders } from '../../hooks/usePostOrders';
 
 export default function Cart() {
     const { cartItems, couponDiscount } = useVariableContext(); // Get cartItems from context
     const { loading, error } = useGetCartItems(1); // Call hook to fetch items
+    const { createNewOrder, successMsg, loading: orderLoading, error: orderError } = usePostOrders(); // Call usePostOrders hook at the top level
 
     if (loading) {
         return <div>Loading cart items...</div>;
@@ -26,7 +25,9 @@ export default function Cart() {
     const shippingCost = totalItems !== 0 ? 99 : 0;
     const totalPrice = subtotal + shippingCost - couponDiscount;
 
+    // handleCheckout now uses createNewOrder from the usePostOrders hook
     const handleCheckout = () => {
+        createNewOrder(cartItems); // Pass cart items to create the order
     };
 
     return (
@@ -61,9 +62,15 @@ export default function Cart() {
                     totalPrice={totalPrice}
                 />
 
-                <Link to="/checkout">
-                    <button className="checkout-button" onClick={handleCheckout}>
-                        MAKE PAYMENT
+                {/* Display error message above the MAKE PAYMENT button */}
+                {orderError && <div className="error">{orderError}</div>}
+                
+                {/* Display success message */}
+                {successMsg && <div className="success">{successMsg}</div>}
+
+                <Link to="/confirmation">
+                    <button className="checkout-button" onClick={handleCheckout} disabled={orderLoading}>
+                        {orderLoading ? "Processing..." : "MAKE PAYMENT"}
                     </button>
                 </Link>
             </div>
