@@ -5,6 +5,7 @@ export const useSaveCartItem = () => {
     const { host } = useVariableContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [successMsg, setSuccessMsg] = useState(null);
 
     const saveCartItem = async (cartItem) => {
         setLoading(true);
@@ -20,12 +21,13 @@ export const useSaveCartItem = () => {
             });
 
             const data = await response.json();
+            console.log('Response Data:', data);
+            
             if (!response.ok) {
-
                 setError(data.message);
                 return;
             }
-            setError(null);
+            setSuccessMsg(data.message);
         } catch (error) {
             setError('An error occurred while saving the item to the cart. Please try again.');
         } finally {
@@ -33,5 +35,5 @@ export const useSaveCartItem = () => {
         }
     };
 
-    return { saveCartItem, loading, error };
+    return { saveCartItem,successMsg, loading, error };
 };

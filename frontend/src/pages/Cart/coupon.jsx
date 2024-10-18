@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './cart.css';
+import './cartSummary.css';
 import { useVariableContext } from '../../context/VariableContext';
 
 const Coupon = () => {

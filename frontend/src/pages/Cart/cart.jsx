@@ -1,39 +1,32 @@
-import React, { useEffect, useState } from 'react';
+// Cart.js
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CartItem from './cartItems';
 import CartSummary from './cartSummary';
 import Coupon from './coupon';
 import './cart.css';
 import { useVariableContext } from '../../context/VariableContext';
 import ShippingAddress from './shippingAddresses';
+import useGetCartItems from '../../hooks/useGetCartItems';
 
 export default function Cart() {
-    const { cartItems, setCartItems, couponDiscount } = useVariableContext();
-    const [isLoading, setIsLoading] = useState(true); // Loading state
+    const { cartItems, couponDiscount } = useVariableContext(); // Get cartItems from context
+    const { loading, error } = useGetCartItems(1); // Call hook to fetch items
 
-    useEffect(() => {
-        // Simulate fetching data or any async operation
-        const fetchCartItems = async () => {
-            // You can replace this with real fetching logic if necessary
-            setTimeout(() => {
-                setIsLoading(false); // Set loading to false after fetching
-            }, 500); // Simulate a delay of 500ms
-        };
+    if (loading) {
+        return <div>Loading cart items...</div>;
+    }
 
-        fetchCartItems();
-    }, []);
-
-    // Check if loading is true before rendering the cart items
-    if (isLoading) {
-        return <div>Loading cart items...</div>; // Show loading message or spinner
+    if (error) {
+        return <div>Error fetching cart items: {error}</div>;
     }
 
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cartItems.reduce((sum, item) => item ? sum + item.price * item.quantity : sum, 0);
-    const shippingCost = totalItems != 0 ? 99 : 0;
+    const shippingCost = totalItems !== 0 ? 99 : 0;
     const totalPrice = subtotal + shippingCost - couponDiscount;
 
     const handleCheckout = () => {
-        alert("Proceeding to checkout...");
     };
 
     return (
@@ -60,7 +53,6 @@ export default function Cart() {
             </div>
 
             <div className="cart-summary-container">
-                <ShippingAddress />
                 <CartSummary
                     totalItems={totalItems}
                     subtotal={subtotal}
@@ -68,11 +60,13 @@ export default function Cart() {
                     discount={couponDiscount}
                     totalPrice={totalPrice}
                 />
-                <button className="checkout-button" onClick={handleCheckout}>
-                    <a href="/checkout">MAKE PAYMENT</a>
-                </button>
-            </div>
 
+                <Link to="/checkout">
+                    <button className="checkout-button" onClick={handleCheckout}>
+                        MAKE PAYMENT
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 }

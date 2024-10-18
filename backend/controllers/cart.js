@@ -5,6 +5,8 @@ export const addToCart = async (req, res) => {
 
   try {
     let cartItem = await CartItems.findOne({ userId, id, color, size });
+    console.log('Existing Cart Item:', cartItem); // Debugging line
+    
 
     if (cartItem) {
       // If the item already exists, update the quantity
@@ -14,7 +16,7 @@ export const addToCart = async (req, res) => {
     } else {
       cartItem = new CartItems({
         id,
-        userId:1,
+        userId,
         name,
         price,
         quantity,
@@ -34,3 +36,25 @@ export const addToCart = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
+
+
+export const getCartItems = async (req, res) => {
+  const { userId } = req.params;
+  console.log(req.params); // Debugging line
+  
+  
+  try {
+
+    const cartItems = await CartItems.find({ userId });
+    // console.log('Cart Items:', cartItems); // Debugging line
+    if(cartItems.length > 0){
+      return res.status(200).json(cartItems);
+    }else{
+      return res.status(404).json({ message: 'No cart items found' });
+    }
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+}

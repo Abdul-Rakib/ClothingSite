@@ -11,9 +11,8 @@ import ImageGallery from './imageGallery';
 export default function ProductPage() {
   const { id } = useParams();
   const { product, loading, error } = useGetProduct(id);
-  const { saveCartItem, loading: savingLoading, error: savingError } = useSaveCartItem();
-  const { cartItems, setCartItems } = useVariableContext();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const { saveCartItem,successMsg, loading: savingLoading, error: savingError } = useSaveCartItem();
+  const navigate = useNavigate();
 
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
@@ -35,6 +34,7 @@ export default function ProductPage() {
 
     const newItem = {
       id: product.id,
+      userId: 1, // Hardcoded user ID for now
       name: product.name,
       price: product.price,
       quantity: 1,
@@ -50,10 +50,11 @@ export default function ProductPage() {
     
     if (savingError) {
       setErrorMsg(savingError); // Display error message from saveCartItem
-    } else {
-      setCartItems((prevItems) => [...prevItems, newItem]);
+    } 
+    // else {
+    //   setCartItems((prevItems) => [...prevItems, newItem]);
       setIsInCart(true);
-    }
+    // }
   };
 
   const handleButtonClick = () => {
@@ -64,14 +65,14 @@ export default function ProductPage() {
     }
   };
 
-  useEffect(() => {
-    if (cartItems.length) {
-      console.log("Cart updated:", cartItems);
-    }
-  }, [cartItems]);
+  // useEffect(() => {
+  //   if (cartItems.length) {
+  //     // console.log("Cart updated:", cartItems);
+  //   }
+  // }, [cartItems]);
 
   if (loading) return <div>Loading product...</div>;
-  if (error) return <div>Error loading product: {error}</div>;
+  if (error) return <div>Errorx loading product: {error}</div>;
   if (!product) return <div>Product not found</div>;
 
   return (
@@ -121,6 +122,8 @@ export default function ProductPage() {
             {errorMsg || savingError} {/* Display error message if present */}
           </div>
         )}
+        {/* Success message display */}
+        {successMsg && <div className="success-message">{successMsg}</div>}
 
         <button
           className="add-to-cart-button"

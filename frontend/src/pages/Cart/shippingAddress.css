@@ -1,14 +1,11 @@
-/* Main container styling */
 .shipping-address-container {
     padding: 0.5rem 2rem;
-    max-width: 600px;
+    min-width: 300px;
     margin: 0 auto;
-    background-color: #f7f7f7;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-bottom: solid 1px #ddd;
 }
 
-/* Saved addresses styling */
 .saved-addresses {
     margin-top: 20px;
 }
@@ -18,16 +15,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px;
-    background-color: #fff;
     border-radius: 10px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.address-item:hover {
-    background-color: #f0f0f0;
-    transform: translateY(-3px);
 }
 
 .address-item label {
@@ -69,19 +58,18 @@
     color: #4CAF50;
 }
 
-/* Popup form styling */
 .popup-form {
-    width: 35%; /* You can adjust this percentage as needed */
+    width: 35%;
     position: fixed;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Shift back to center */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: white;
     padding: 1.5rem 1.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
     z-index: 999;
     border-radius: 15px;
-    animation: slide-up 0.5s ease-out; /* Add animation */
+    animation: slide-up 0.5s ease-out;
 }
 
 @keyframes slide-up {
@@ -129,7 +117,6 @@
     background-color: #374151;
 }
 
-/* General button styling */
 button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -151,7 +138,6 @@ h2 {
     color: #1F2937;
 }
 
-/* Responsive design for mobile */
 @media (max-width: 600px) {
     .shipping-address-container {
         padding: 15px;

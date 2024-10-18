@@ -4,17 +4,9 @@ import { FaTrash, FaEdit } from 'react-icons/fa';  // Importing icons
 
 export default function ShippingAddress() {
     const [addresses, setAddresses] = useState([]);
-    const [newAddress, setNewAddress] = useState({
-        name: '',
-        mobileNumber: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        state: '',
-        postalCode: '',
-        isSelected: false,
-    });
+    const [newAddress, setNewAddress] = useState({});
     const [showForm, setShowForm] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');  // For displaying validation message
 
     useEffect(() => {
         const savedAddresses = JSON.parse(localStorage.getItem('shippingAddresses')) || [];
@@ -28,9 +20,16 @@ export default function ShippingAddress() {
     const handleAddressChange = (e) => {
         const { name, value } = e.target;
         setNewAddress({ ...newAddress, [name]: value });
+        setErrorMessage(''); // Clear error when user types
     };
 
     const addOrUpdateAddress = () => {
+        // Validation for required fields
+        if (!newAddress.name || !newAddress.mobileNumber || !newAddress.addressLine1 || !newAddress.city || !newAddress.state || !newAddress.postalCode) {
+            setErrorMessage('Please fill in all required fields.');
+            return; // Stop the function if validation fails
+        }
+
         const updatedAddresses = [...addresses];
         const existingIndex = updatedAddresses.findIndex((addr) => addr.isSelected);
 
@@ -72,6 +71,7 @@ export default function ShippingAddress() {
             postalCode: '',
             isSelected: false,
         });
+        setErrorMessage(''); // Clear error message when resetting the form
     };
 
     return (
@@ -165,6 +165,7 @@ export default function ShippingAddress() {
                             onChange={handleAddressChange}
                             required
                         />
+                        {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Displaying validation message */}
                         <button onClick={addOrUpdateAddress}>
                             {addresses.length === 0 ? 'Add' : 'Update'} Address
                         </button>
