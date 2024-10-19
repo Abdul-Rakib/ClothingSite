@@ -1,39 +1,51 @@
 import React from 'react';
 import { FaChevronRight } from 'react-icons/fa'; // Import the navigate icon
 import './orders.css';
+import useGetOrders from '../../../hooks/useGetOrders';
 
-const Order = ({ orders }) => {
+const Order = () => {
+  const { loading, error, orders } = useGetOrders(1);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  console.log(orders);
+
   return (
-    <div className="orders-container"> {/* Added a unique container class */}
-      {orders.length > 0 ? (
-        orders.map((order) => (
-          <React.Fragment key={order.id}>
-            <div className="order-row">
-              <div className="order-container">
-                <div className="order-image">
-                  <img src={order.productImage} alt={order.title} className="order-product-image" /> {/* Updated class name */}
-                </div>
-                <div className="order-details">
-                  <h4>{order.title}</h4>
-                  <p>Price: ₹{order.price}</p>
-                  <p>Order Date: {order.orderDate}</p>
-                </div>
-              </div>
-              <div className={`order-status ${order.status}`}>
-                {order.status.toUpperCase()}
-              </div>
-              <div className="view-details">
-                <button className="details-button">
-                  View Order Details <FaChevronRight className="navigate-icon" />
-                </button>
+    <div>
+      <h2>Orders</h2>
+      <div className="orders-container">
+        {orders.length === 0 ? (
+          <p>No orders found.</p>
+        ) : (
+          orders.map((order) => (
+            <div key={order._id} className="order-card">
+              <p>Order ID: {order._id}</p>
+              <div className="cart-items">
+                <h4>Order Items</h4>
+                {order.cartItems.length === 0 ? (
+                  <p>No items in the cart.</p>
+                ) : (
+                  <ul>
+                    {order.cartItems.map((item, index) => (
+                      <li key={index}>
+                        {/* Display cart item details */}
+                        <div className='order-item-image'>
+                          <img src={item.images[0]} alt={item.name} />
+                        </div>
+                        <p>Item: {item.name}</p>
+                        <p>Quantity: {item.quantity}</p>
+                        <p>Size: {item.size}</p>
+                        <p>Color: {item.color}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
-            <hr className="divider" />
-          </React.Fragment>
-        ))
-      ) : (
-        <p>No orders available.</p>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 };
