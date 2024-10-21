@@ -1,72 +1,76 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
+/* Overall Order Container */
+.order-container {
+  background-color: #ffffff;
   padding: 20px;
-}
-
-
-.orders-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.order-card {
-  background-color: #fff;
-  border: 1px solid #dee2e6;
   border-radius: 8px;
-  padding: 15px;
-  margin: 10px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 600px;
-  transition: transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.order-card:hover {
-  transform: scale(1.02);
+/* Title of the Order List */
+.order-list {
+  margin-top: 10px;
 }
 
-.cart-items {
-  margin-top: 15px;
+/* Individual Order Item Styles */
+.order-item {
+  border-bottom: 1px solid #e0e0e0; /* Divider line between orders */
+  padding: 10px 0; /* Padding for individual orders */
+}
+
+/* Order Summary (clickable area for toggling) */
+.order-summary {
+  display: flex;
+  justify-content: space-between; /* Space between text and icon */
+  align-items: center; /* Center the content vertically */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Styles for the toggle icon */
+.toggle-icon {
+  transition: transform 0.2s ease; /* Smooth rotation effect */
+}
+
+/* Rotate icon when the order is expanded */
+.rotated {
+  transform: rotate(90deg); /* Rotate the icon when expanded */
+}
+
+/* Styles for the order items section */
+.order-items {
+  margin-top: 10px; /* Space between order summary and items */
+}
+
+/* Cart Item List */
+.cart-item {
+  margin: 5px 0; /* Margin for each cart item */
+}
+
+/* Details of each cart item */
+.cart-item-details {
+  display: flex;
+  align-items: center; /* Align items in the center */
+}
+
+/* Image of the cart item */
+.cart-item img {
+  width: 50px; /* Set width for item images */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 10px; /* Space between image and text */
+}
+
+/* Text styling for cart item details */
+.cart-item p {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Heading styles */
+h2 {
+  font-size: 24px; /* Main heading size */
+  margin-bottom: 10px; /* Space below the heading */
 }
 
 h4 {
-  color: #007bff;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-p {
-  color: #495057;
-  margin: 5px 0;
-}
-
-p.loading,
-p.error {
-  text-align: center;
-  color: #dc3545;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.order-item-image {
-  max-width: 100px;
-  max-height: 100px;
-  overflow: hidden;
-  border-radius: 5px;
-  margin-right: 10px;
-  display: inline-block;
-}
-
-.order-item-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+  font-size: 18px; /* Subheading size */
+  margin-top: 10px; /* Space above subheading */
 }

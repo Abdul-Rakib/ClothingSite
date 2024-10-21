@@ -1,10 +1,10 @@
 import CartItems from '../models/cartItems.js';
 
 export const addToCart = async (req, res) => {
-  const { userId, id, quantity, color, size, name, price, category, description, images, isInCart } = req.body;
+  const { userId,email, id, quantity, color, size, name, price, category, description, images, isInCart } = req.body;
 
   try {
-    let cartItem = await CartItems.findOne({ userId, id, color, size });
+    let cartItem = await CartItems.findOne({ userId,email, id, color, size });
     console.log('Existing Cart Item:', cartItem); // Debugging line
     
 
@@ -17,6 +17,7 @@ export const addToCart = async (req, res) => {
       cartItem = new CartItems({
         id,
         userId,
+        email,
         name,
         price,
         quantity,

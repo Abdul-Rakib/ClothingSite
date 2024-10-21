@@ -58,28 +58,33 @@ const BottomNavbar = () => {
       <nav className="bottom-navbar">
         <div className="bottom-navbar-item">
           <Link to='/'>
-            <FaHome size={25} /> {/* Home Icon */}
+            <FaHome size={25} />
+            <span className="bottom-navbar-text">Home</span>
           </Link>
         </div>
         <div className="bottom-navbar-item">
           <Link to='/contact'>
             <FaPhoneAlt size={25} />
+            <span className="bottom-navbar-text">Contact</span>
           </Link>
         </div>
         <div className="bottom-navbar-item">
           <Link to='/wishlist'>
             <FaHeart size={25} />
+            <span className="bottom-navbar-text">Wishlist</span>
           </Link>
         </div>
         <div className="bottom-navbar-item">
           <Link to='/cart'>
             <FaShoppingCart size={25} />
+            <span className="bottom-navbar-text">Cart</span>
           </Link>
         </div>
         <div className="bottom-navbar-item">
           {isLoggedIn ? (
-            <Link to='/profile'>
+            <Link to='/dashboard'>
               <FaUser size={25} />
+              <span className="bottom-navbar-text">Profile</span>
             </Link>
           ) : (
             <Link to='/login'>

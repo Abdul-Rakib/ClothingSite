@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useVariableContext } from '../context/VariableContext';
 
 const useGetCartItems = (userId) => {
-  const { host, setCartItems } = useVariableContext();
+  const { host, setCartItems, user } = useVariableContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,7 +13,7 @@ const useGetCartItems = (userId) => {
       setError(null);
 
       try {
-        const response = await fetch(`${host}/cart/getcart/${userId}`, {
+        const response = await fetch(`${host}/cart/getcart/${user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

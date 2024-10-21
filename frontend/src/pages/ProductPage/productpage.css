@@ -24,7 +24,7 @@ body {
 .main-image-container {
     display: flex;
     width: 100%;
-    height: 70vh;
+    height: 60vh;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -68,6 +68,7 @@ body {
 }
 
 .product-title {
+    display: flex;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -181,6 +182,9 @@ body {
         padding: 1rem;
         margin-bottom: 3rem;
     }
+    .main-image-container {
+        height: 50vh;
+    }
 
     .image-gallery, .product-details {
         width: 100%;
@@ -200,6 +204,7 @@ body {
 @media (max-width: 480px) {
     .product-title {
         font-size: 1.5rem;
+        margin-top:1rem ;
     }
 
     .product-price {

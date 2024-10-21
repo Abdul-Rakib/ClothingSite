@@ -13,7 +13,7 @@ export const register = async (req, res) => {
 
         const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists', existingUser });
+            return res.status(400).json({ message: 'User already exists, please try logging in.', existingUser });
         }
 
         const userCount = await User.countDocuments();
@@ -69,7 +69,12 @@ export const login = async (req, res) => {
         // Send the response with token
         res.status(200).json({
             message: 'Login successful',
-            user,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile,
+            },
             token,
         });
 

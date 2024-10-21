@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useVariableContext } from '../context/VariableContext';
 
-const useGetOrders = (userId)=>{
-    const {host} = useVariableContext();
+const useGetOrders = ()=>{
+    const {host, user} = useVariableContext();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [orders, setOrders] = useState([])
@@ -15,7 +15,7 @@ const useGetOrders = (userId)=>{
           setError(null);
     
           try {
-            const response = await fetch(`${host}/order/getorders/${userId}`, {
+            const response = await fetch(`${host}/order/getorders/${user.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const useGetOrders = (userId)=>{
           }
         };
     
-        if (userId) {
+        if (user.id) {
           getOrders();
         }
       }, []);

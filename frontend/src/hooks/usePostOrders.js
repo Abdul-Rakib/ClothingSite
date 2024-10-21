@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useVariableContext } from '../context/VariableContext';
 
 export const usePostOrders = () => {
-    const { host } = useVariableContext();
+    const { host, user } = useVariableContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
@@ -16,8 +16,8 @@ export const usePostOrders = () => {
 
         // Create the order object that includes userId and userEmail
         const orderData = {
-            userId: 1,
-            userEmail: 'xyz@gmail.com',
+            userId: user.id,
+            userEmail: user.email,
             cartItems,
         };
 

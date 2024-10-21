@@ -17,7 +17,7 @@ export const useRegister = () => {
                 body: JSON.stringify({ name, mobile, email, password }),
             });
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             
             if (!response.ok) {
                 setRegisterError(data.message);

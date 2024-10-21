@@ -1,19 +1,23 @@
 /* Navbar Styles */
 .navbar {
+  max-width: 1300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1.5rem 0.5rem;
   background-color: #f7fafc;
-  position: relative;
-  z-index: 20;
 }
 
 .navbar-left {
   display: flex;
   align-items: center;
-  flex: 1;
   justify-content: flex-start;
+}
+
+.navbar-right{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .navbar-title {
@@ -33,6 +37,10 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.navbar-menu{
+  margin-left: 3rem;
 }
 
 .navbar-menu li {
@@ -199,12 +207,18 @@
   border-top-right-radius: 35px;
 }
 
+.bottom-navbar-text {
+  font-size: 0.5rem; /* Adjust font size as needed */
+  margin-top: 0.25rem; /* Add some spacing between icon and text */
+}
+
 .bottom-navbar-item {
   color: #4b5563;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 0.65rem;
+  text-align: center; /* Center text under icons */
 }
 
 .bottom-navbar-item a {

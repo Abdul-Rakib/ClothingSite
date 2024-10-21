@@ -10,6 +10,8 @@ import ImageGallery from './imageGallery';
 
 export default function ProductPage() {
   const { id } = useParams();
+  const {user} = useVariableContext();
+  
   const { product, loading, error } = useGetProduct(id);
   const { saveCartItem,successMsg, loading: savingLoading, error: savingError } = useSaveCartItem();
   const navigate = useNavigate();
@@ -34,7 +36,8 @@ export default function ProductPage() {
 
     const newItem = {
       id: product.id,
-      userId: 1, // Hardcoded user ID for now
+      userId: user.id,
+      email: user.email,
       name: product.name,
       price: product.price,
       quantity: 1,

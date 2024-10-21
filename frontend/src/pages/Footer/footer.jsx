@@ -28,9 +28,9 @@ const Footer = ()=>{
           </div>
           <div className='col'>
             <h3>Contact Us</h3>
-            <p>Email: support@clothingsite.com</p>
-            <p>Phone: +91 9999999999</p>
-            <p>Address: Khalpara, Siliguri West Bengal 121212</p>
+            <p>Email: support.thriftnbliss@gmail.com</p>
+            <p>Phone: +91 987654321</p>
+            <p>Address: Jorethang, South Sikkim</p>
           </div>
         </div>
         <div className='bottomBar'>
