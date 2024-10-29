@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/navbar';
 import Login from './pages/ AuthPages/login';
 import Register from './pages/ AuthPages/register';
 import ForgetPassword from './pages/ AuthPages/forgetpassword';
+import ResetPassword from './pages/ AuthPages/resetpassword';
 import AboutPage from './pages/About/about';
 import AllProducts from './pages/AllProducts/allproducts';
 import Contact from './pages/Contact/contact';
@@ -20,6 +21,7 @@ import Checkout from './pages/Checkout/checkout';
 import Confirmation from './pages/confirmationPage/confirmation';
 import Dashboard from './pages/UserDashboard/dashboard';
 import NotFound from './components/ErrorPage/notfound';
+import OrderDetails from './pages/UserDashboard/Orders/orderdetails';
 
 
 function App() {
@@ -38,11 +40,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/resetpassword/:userId/:token" element={<ResetPassword/>} />
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/orderdetails" element={<OrderDetails/>} />
+
         <Route path="*" element={<NotFound />} /> {/* Catch-all for 404 */}
       </Routes>
       <Footer /> {/* Place Footer outside the Routes if you want it on every page */}

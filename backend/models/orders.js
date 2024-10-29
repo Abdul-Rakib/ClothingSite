@@ -48,6 +48,11 @@ const CartItemSchema = new Schema({
 
 // Define the schema for an order
 const OrderSchema = new Schema({
+  orderId: {
+    type: String,
+    required: true,
+    unique: true
+  },
   userId: {
     type: String,
     required: true
@@ -57,9 +62,37 @@ const OrderSchema = new Schema({
     required: true
   },
   cartItems: [CartItemSchema], // Array of cart items
-});
+  discountCode: {
+    type: String,
+  },
+  discountedAmount: {
+    type: Number,
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
+  shippingAddress: {
+    type: String,
+    required: true
+  },
+  paymentMethod: {
+    type: String,
+    required: true
+  },
+  paymentStatus: {
+    type: String,
+    required: true
+  },
+  orderStatus: {
+    type: String,
+    required: true,
+    trackingId: {
+      type: String
+    },
+  },
+}, { timestamps: true });
 
-// Create the model
 const Order = mongoose.model('Order', OrderSchema);
 
 export default Order;

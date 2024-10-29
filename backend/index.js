@@ -9,6 +9,7 @@ import productsRoutes from './routes/product.js';
 import authRoutes from './routes/auth.js';
 import cartRoutes from './routes/cart.js';
 import orderRoutes from './routes/orders.js';
+import passwordRoutes from './routes/password.js';
 
 dotenv.config(); // Load environment variables
 
@@ -21,6 +22,7 @@ app.use('/products', productsRoutes);
 app.use('/auth', authRoutes);
 app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
+app.use('/password', passwordRoutes );
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,

@@ -1,76 +1,126 @@
-/* Overall Order Container */
 .order-container {
-  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Title of the Order List */
-.order-list {
-  margin-top: 10px;
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+  color: #1F2937; /* Dark Slate color for the heading */
 }
 
-/* Individual Order Item Styles */
 .order-item {
-  border-bottom: 1px solid #e0e0e0; /* Divider line between orders */
-  padding: 10px 0; /* Padding for individual orders */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px; /* Added margin for better spacing */
 }
 
-/* Order Summary (clickable area for toggling) */
 .order-summary {
   display: flex;
-  justify-content: space-between; /* Space between text and icon */
-  align-items: center; /* Center the content vertically */
-  cursor: pointer; /* Change cursor to pointer on hover */
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Styles for the toggle icon */
-.toggle-icon {
-  transition: transform 0.2s ease; /* Smooth rotation effect */
+.order-summary:hover {
+  background-color: #f1f5f9; /* Light background on hover */
 }
 
-/* Rotate icon when the order is expanded */
-.rotated {
-  transform: rotate(90deg); /* Rotate the icon when expanded */
+.order-summary p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
 }
 
-/* Styles for the order items section */
-.order-items {
-  margin-top: 10px; /* Space between order summary and items */
+.order-id-container p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1F2937; /* Dark Slate color for Order ID */
 }
 
-/* Cart Item List */
-.cart-item {
-  margin: 5px 0; /* Margin for each cart item */
-}
-
-/* Details of each cart item */
-.cart-item-details {
+.order-preview {
   display: flex;
-  align-items: center; /* Align items in the center */
+  gap: 8px; /* Added gap for spacing between images */
 }
 
-/* Image of the cart item */
-.cart-item img {
-  width: 50px; /* Set width for item images */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 10px; /* Space between image and text */
+.order-preview-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease;
 }
 
-/* Text styling for cart item details */
-.cart-item p {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
+.order-status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
-/* Heading styles */
-h2 {
-  font-size: 24px; /* Main heading size */
-  margin-bottom: 10px; /* Space below the heading */
+.order-status-container p {
+  margin: 0;
+  font-size: 15px;
+  color: #6B7280;
 }
 
-h4 {
-  font-size: 18px; /* Subheading size */
-  margin-top: 10px; /* Space above subheading */
+.toggle-icon {
+  transition: transform 0.2s ease, color 0.3s ease;
+  color: #9CA3AF;
+}
+
+.order-summary:hover .toggle-icon {
+  color: #1F2937; /* Dark Slate color on hover */
+}
+
+.order-items {
+  padding: 20px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+}
+
+.order-items h4 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .order-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .order-preview {
+    justify-content: flex-start; /* Align images to the start */
+  }
+
+  .order-preview-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .order-status-container {
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  h2 {
+    font-size: 24px; /* Smaller heading on mobile */
+  }
+
+  .order-item {
+    padding: 10px; /* Added padding for better touch targets */
+  }
 }
