@@ -1,10 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa';
 import './orders.css';
-import useGetOrders from '../../../hooks/useGetOrders';
+import useGetOrders from '../../hooks/useGetOrders';
 
-const Order = () => {
+const Orders = () => {
   const { loading, error, orders } = useGetOrders();
   const navigate = useNavigate();
 
@@ -12,8 +11,13 @@ const Order = () => {
   if (error) return <p>Error: {error}</p>;
 
   const navigateToOrderDetails = (order) => {
-    // Navigate to /orderdetails and pass the selected order via state
     navigate('/orderdetails', { state: { order } });
+  };
+
+  // Function to format the date
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   return (
@@ -24,27 +28,31 @@ const Order = () => {
           <p>No orders found.</p>
         ) : (
           orders.map((order) => (
-
             <div key={order._id} className='order-item'>
               <div className='order-summary' onClick={() => navigateToOrderDetails(order)}>
                 <div className='order-id-container'>
                   <p>Order ID: {order._id}</p>
                   <div className="order-preview">
-                    {order.cartItems.slice(0, 2).map((item, index) => (
+                    {order.orderedItems.slice(0, 2).map((item, index) => (
                       <img key={index} src={item.images[0]} alt={item.name} className='order-preview-img' />
                     ))}
                   </div>
                 </div>
 
                 <div className='order-status-container'>
-                  <div>
-                    <p>Date: xx/xx/xxxx</p>
-                    <p>Total Amount: 1499 INR</p>
-                    <p>Status: Shipped</p>
+                  <div className='order-status-labels'>
+                    <p>Order At:</p>
+                    <p>Order Status:</p>
+                    <p>Items:</p>
+                    <p>Price:</p>
+                  </div>
+                  <div className='order-status-values'>
+                    <p>{formatDate(order.date)}</p> {/* Format and display date */}
+                    <p>{order.orderStatus}</p>
+                    <p>{order.orderedItems.length} Items Purchased</p>
+                    <p>₹{order.totalPrice}</p>
                   </div>
                 </div>
-                  <FaChevronRight className="toggle-icon" />
-
               </div>
             </div>
           ))
@@ -54,4 +62,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Orders;

@@ -17,11 +17,11 @@ import ShippingPolicy from './pages/Footer/Policies/shipping';
 import Homepage from './pages/Homepage/homepage';
 import ProductPage from './pages/ProductPage/productpage';
 import Cart from './pages/Cart/cart';
-import Checkout from './pages/Checkout/checkout';
 import Confirmation from './pages/confirmationPage/confirmation';
 import Dashboard from './pages/UserDashboard/dashboard';
 import NotFound from './components/ErrorPage/notfound';
-import OrderDetails from './pages/UserDashboard/Orders/orderdetails';
+import Orders from './pages/Orders/orders';
+import OrderDetails from './pages/Orders/orderdetails';
 
 
 function App() {
@@ -43,9 +43,9 @@ function App() {
         <Route path="/resetpassword/:userId/:token" element={<ResetPassword/>} />
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/orderdetails" element={<OrderDetails/>} />
 
         <Route path="*" element={<NotFound />} /> {/* Catch-all for 404 */}

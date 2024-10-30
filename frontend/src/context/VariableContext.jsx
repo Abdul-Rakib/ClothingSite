@@ -16,6 +16,13 @@ export const VariableContextProvider = ({ children }) => {
   const [token, setToken] = useState(() => {
     return localStorage.getItem("token");
   });
+
+  const deleteUser = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("shippingAddress");
+};
   
 
   
@@ -33,6 +40,7 @@ export const VariableContextProvider = ({ children }) => {
         user,
         setUser,
         token,
+        deleteUser,
         cartItems,
         setCartItems,
         couponDiscount,

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './shippingAddress.css';
-import { FaTrash, FaEdit } from 'react-icons/fa';  // Importing icons
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 export default function ShippingAddress() {
-    const [addresses, setAddresses] = useState([]);
+    const [address, setAddress] = useState({});
     const [newAddress, setNewAddress] = useState({});
     const [showForm, setShowForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');  // For displaying validation message
 
     useEffect(() => {
-        const savedAddresses = JSON.parse(localStorage.getItem('shippingAddresses')) || [];
-        setAddresses(savedAddresses);
-
-        if (savedAddresses.length === 0) {
-            setShowForm(false);
+        const savedAddress = JSON.parse(localStorage.getItem('shippingAddress'));
+        if (savedAddress) {
+            setAddress(savedAddress);
         }
     }, []);
 
@@ -30,34 +28,16 @@ export default function ShippingAddress() {
             return; // Stop the function if validation fails
         }
 
-        const updatedAddresses = [...addresses];
-        const existingIndex = updatedAddresses.findIndex((addr) => addr.isSelected);
-
-        if (existingIndex > -1) {
-            updatedAddresses[existingIndex] = { ...newAddress, isSelected: true };
-        } else {
-            updatedAddresses.push({ ...newAddress, isSelected: true });
-        }
-
-        setAddresses(updatedAddresses);
-        localStorage.setItem('shippingAddresses', JSON.stringify(updatedAddresses));
+        // Save new address to state and localStorage
+        setAddress(newAddress);
+        localStorage.setItem('shippingAddress', JSON.stringify(newAddress));
         resetForm();
         setShowForm(false);
     };
 
-    const selectAddress = (index) => {
-        const updatedAddresses = addresses.map((addr, i) => ({
-            ...addr,
-            isSelected: i === index,
-        }));
-        setAddresses(updatedAddresses);
-        localStorage.setItem('shippingAddresses', JSON.stringify(updatedAddresses));
-    };
-
-    const deleteAddress = (index) => {
-        const updatedAddresses = addresses.filter((_, i) => i !== index);
-        setAddresses(updatedAddresses);
-        localStorage.setItem('shippingAddresses', JSON.stringify(updatedAddresses));
+    const deleteAddress = () => {
+        setAddress({});
+        localStorage.removeItem('shippingAddress');
     };
 
     const resetForm = () => {
@@ -69,7 +49,6 @@ export default function ShippingAddress() {
             city: '',
             state: '',
             postalCode: '',
-            isSelected: false,
         });
         setErrorMessage(''); // Clear error message when resetting the form
     };
@@ -78,43 +57,33 @@ export default function ShippingAddress() {
         <div className="shipping-address-container">
             <h2>Shipping Address</h2>
 
-            {addresses.length === 0 ? (
+            {!address.name ? (
                 <button onClick={() => setShowForm(true)}>Add Shipping Address</button>
             ) : (
-                <div className="saved-addresses">
-                    {addresses.map((address, index) => (
-                        <div key={index} className="address-item">
-                            <div className='address-box'>
-                                <input
-                                    type="radio"
-                                    name="selectedAddress"
-                                    checked={address.isSelected}
-                                    onChange={() => selectAddress(index)}
-                                />
-                                <label>{`${address.name}, ${address.mobileNumber}, ${address.addressLine1}, ${address.city}, ${address.state}, ${address.postalCode}`}</label>
-                            </div>
-                            <div className='address-operations'>
-                                <button onClick={() => deleteAddress(index)} className="icon-button delete">
-                                    <FaTrash />
-                                </button>
-                                <button onClick={() => setShowForm(true)} className="icon-button update">
-                                    <FaEdit />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                <div className="saved-address">
+                    <div className='address-box'>
+                        <p>{`${address.name}, ${address.mobileNumber}, ${address.addressLine1}, ${address.city}, ${address.state}, ${address.postalCode}`}</p>
+                    </div>
+                    <div className='address-operations'>
+                        <button onClick={deleteAddress} className="icon-button delete">
+                            <FaTrash />
+                        </button>
+                        <button onClick={() => setShowForm(true)} className="icon-button update">
+                            <FaEdit />
+                        </button>
+                    </div>
                 </div>
             )}
 
             {showForm && (
                 <div className="popup-form">
                     <div className="popup-content">
-                        <h2>{addresses.length === 0 ? 'Add' : 'Update'} Address</h2>
+                        <h2>{!address.name ? 'Add' : 'Update'} Address</h2>
                         <input
                             type="text"
                             name="name"
                             placeholder="Full Name"
-                            value={newAddress.name}
+                            value={newAddress.name || ''}
                             onChange={handleAddressChange}
                             required
                         />
@@ -122,7 +91,7 @@ export default function ShippingAddress() {
                             type="text"
                             name="mobileNumber"
                             placeholder="Mobile Number"
-                            value={newAddress.mobileNumber}
+                            value={newAddress.mobileNumber || ''}
                             onChange={handleAddressChange}
                             required
                         />
@@ -130,7 +99,7 @@ export default function ShippingAddress() {
                             type="text"
                             name="addressLine1"
                             placeholder="Address Line 1"
-                            value={newAddress.addressLine1}
+                            value={newAddress.addressLine1 || ''}
                             onChange={handleAddressChange}
                             required
                         />
@@ -138,14 +107,14 @@ export default function ShippingAddress() {
                             type="text"
                             name="addressLine2"
                             placeholder="Address Line 2"
-                            value={newAddress.addressLine2}
+                            value={newAddress.addressLine2 || ''}
                             onChange={handleAddressChange}
                         />
                         <input
                             type="text"
                             name="city"
                             placeholder="City"
-                            value={newAddress.city}
+                            value={newAddress.city || ''}
                             onChange={handleAddressChange}
                             required
                         />
@@ -153,7 +122,7 @@ export default function ShippingAddress() {
                             type="text"
                             name="state"
                             placeholder="State"
-                            value={newAddress.state}
+                            value={newAddress.state || ''}
                             onChange={handleAddressChange}
                             required
                         />
@@ -161,13 +130,13 @@ export default function ShippingAddress() {
                             type="text"
                             name="postalCode"
                             placeholder="Postal Code"
-                            value={newAddress.postalCode}
+                            value={newAddress.postalCode || ''}
                             onChange={handleAddressChange}
                             required
                         />
-                        {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Displaying validation message */}
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
                         <button onClick={addOrUpdateAddress}>
-                            {addresses.length === 0 ? 'Add' : 'Update'} Address
+                            {!address.name ? 'Add' : 'Update'} Address
                         </button>
                         <button onClick={() => setShowForm(false)}>Cancel</button>
                     </div>

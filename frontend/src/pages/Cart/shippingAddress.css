@@ -6,38 +6,30 @@
     border-bottom: solid 1px #ddd;
 }
 
-.saved-addresses {
-    margin-top: 20px;
-}
-
-.address-item {
+.saved-address {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 10px;
-}
-
-.address-item label {
-    font-weight: 500;
-    font-size: 16px;
-    margin-left: 10px;
-    flex-grow: 1;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
 }
 
 .address-box {
+    flex-grow: 1;
     display: flex;
     align-items: center;
+    font-size: 16px;
+    color: #1F2937;
 }
 
 .address-operations {
     display: flex;
-    flex-direction: column;
+    gap: 8px;
 }
-.address-box input {
-    width: 0.75rem;
-}
+
 .icon-button {
     background-color: transparent;
     border: none;
@@ -45,11 +37,9 @@
     padding: 5px;
     font-size: 18px;
     transition: color 0.3s ease;
-}
-
-.icon-button{
     color: #1F2937;
 }
+
 .icon-button.delete:hover {
     color: #ff4d4d;
 }

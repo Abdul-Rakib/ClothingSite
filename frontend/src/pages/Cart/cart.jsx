@@ -26,7 +26,7 @@ export default function Cart() {
     const totalPrice = subtotal + shippingCost - couponDiscount;
 
     const handleCheckout = () => {
-        createNewOrder(cartItems);
+        createNewOrder(cartItems, subtotal, totalPrice, shippingCost, couponDiscount );
     };
 
     return (

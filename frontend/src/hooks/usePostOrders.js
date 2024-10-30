@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useVariableContext } from '../context/VariableContext';
+import ShippingAddress from '../pages/Cart/shippingAddresses';
 
 export const usePostOrders = () => {
     const { host, user } = useVariableContext();
@@ -7,18 +8,30 @@ export const usePostOrders = () => {
     const [error, setError] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
 
-    // const createNewOrder = async (cartItems, userId, userEmail) => {
-        const createNewOrder = async (cartItems) => {
+    const [shippingAddress, setShippingAddress] = useState(() => {
+        const storedUser = localStorage.getItem('shippingAddress');
+        return storedUser ? JSON.parse(storedUser) : null; // Parse the stored user JSON string
+      });
+      
+        const createNewOrder = async (cartItems, subtotal, totalPrice, shippingCost, couponDiscount) => {
         setLoading(true);
         setError(null);  // Reset error before making a new request
         console.log('Creating new order...');
-        console.log(cartItems);
+        console.log("Order Items", cartItems);
 
-        // Create the order object that includes userId and userEmail
-        const orderData = {
+        const orderData = { 
             userId: user.id,
             userEmail: user.email,
-            cartItems,
+            orderedItems : cartItems,
+            subtotal,
+            discountCode: "DISCOUNT10",
+            discountedAmount: couponDiscount,
+            totalPrice,
+            shippingAddress,
+            paymentMethod : 'PREPAID',
+            paymentStatus : 'PENDING',
+            orderStatus : 'CREATED',
+
         };
 
         try {

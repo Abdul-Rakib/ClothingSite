@@ -1,15 +1,56 @@
 .user-dashboard {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+  padding: 10px;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  max-width: 400px;
+}
+
+.account {
+  text-align: center;
+}
+
+.dashboard-head {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 24px;
+  color: #333;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: solid #a3a2a2;
+}
+
+.user-info{
+  text-align: left;
+}
+
+.user-dashboard-links {
+  display: block;
+  padding: 15px 15px;
+  margin: 10px 5px;
+  border-bottom: solid #a3a2a2;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #1F2937;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .user-dashboard {
+    max-width: 90%;
   }
-  
-  .dashboard-content {
-    display: flex;
-    flex-direction: column; /* Stack profile and orders vertically */
-    gap: 20px; /* Space between components */
+
+  .dashboard-head {
+    font-size: 20px;
   }
-  
+
+  .user-dashboard-links {
+    font-size: 16px;
+  }
+}
