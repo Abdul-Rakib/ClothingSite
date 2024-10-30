@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useVariableContext } from '../context/VariableContext';
 
-const useGetCartItems = (userId) => {
+const useGetCartItems = () => {
   const { host, setCartItems, user } = useVariableContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,10 +35,10 @@ const useGetCartItems = (userId) => {
       }
     };
 
-    if (userId) {
+    if (user.id) {
       fetchCartItems();
     }
-  }, [userId, host, setCartItems]);
+  }, [host, setCartItems]);
 
   return { loading, error };
 };

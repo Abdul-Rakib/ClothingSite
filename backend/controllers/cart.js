@@ -1,36 +1,45 @@
-import CartItems from '../models/cartItems.js';
+import Cart from "../models/carts.js";
 
 export const addToCart = async (req, res) => {
-  const { userId,email, id, quantity, color, size, name, price, category, description, images, isInCart } = req.body;
+  const { userId, email, cartItem } = req.body;
 
   try {
-    let cartItem = await CartItems.findOne({ userId,email, id, color, size });
-    console.log('Existing Cart Item:', cartItem); // Debugging line
-    
+    let userCart = await Cart.findOne({ userId });
+    if (!userCart) {
+      userCart = new Cart({ userId, email, cartItems: [] });
+    }
 
-    if (cartItem) {
-      // If the item already exists, update the quantity
-      cartItem.quantity += quantity;
-      await cartItem.save();
-      return res.status(200).json({ message: 'Cart item updated', cartItem });
+    const existingItemIndex = userCart.cartItems.findIndex(
+      (item) => item.id === cartItem.id
+    );
+
+    if (existingItemIndex !== -1) {
+      // Item exists, update its quantity
+      userCart.cartItems[existingItemIndex].quantity += cartItem.quantity;
     } else {
-      cartItem = new CartItems({
-        id,
-        userId,
-        email,
-        name,
-        price,
-        quantity,
-        color,
-        size,
-        category,
-        description,
-        images,
-        isInCart,
-      });
+      // Item does not exist, add it to cartItems array
+      userCart.cartItems.push(cartItem);
+    }
 
-      await cartItem.save();
-      return res.status(201).json({ message: 'Item added to cart', cartItem });
+    await userCart.save();
+    res.status(200).json({ message: 'Item added/updated in cart', userCart });
+  } catch (error) {
+    console.error('Error adding item to cart:', error.message);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
+
+
+export const getCartItems = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const userCart = await Cart.findOne({ userId });
+
+    if (userCart && userCart.cartItems.length > 0) {
+      return res.status(200).json(userCart.cartItems);
+    } else {
+      return res.status(404).json({ message: 'No cart items found' });
     }
   } catch (error) {
     console.error(error);
@@ -39,23 +48,25 @@ export const addToCart = async (req, res) => {
 };
 
 
-export const getCartItems = async (req, res) => {
-  const { userId } = req.params;
-  console.log(req.params); // Debugging line
-  
-  
-  try {
+export const updateCartItems = async (req, res) => {
+  const { userId, cartItems } = req.body;
+  console.log('Body cart :', cartItems); // Debugging line
 
-    const cartItems = await CartItems.find({ userId });
-    // console.log('Cart Items:', cartItems); // Debugging line
-    if(cartItems.length > 0){
-      return res.status(200).json(cartItems);
-    }else{
-      return res.status(404).json({ message: 'No cart items found' });
-    }
-    
+
+  try {
+    // Replace the entire cart for the user
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId }, // Find the user's cart
+      { $set: { cartItems } }, // Set the new cart items
+      { new: true, upsert: true } // Create if it doesn't exist and return the updated document
+    );
+    console.log('updated cart', updatedCart);
+
+
+    return res.status(200).json({ message: 'Cart updated successfully', updatedCartItems : updatedCart.cartItems });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
-}
+};
+

@@ -8,7 +8,7 @@ export const usePostOrders = () => {
     const [successMsg, setSuccessMsg] = useState(null);
 
     // const createNewOrder = async (cartItems, userId, userEmail) => {
-    const createNewOrder = async (cartItems) => {
+        const createNewOrder = async (cartItems) => {
         setLoading(true);
         setError(null);  // Reset error before making a new request
         console.log('Creating new order...');

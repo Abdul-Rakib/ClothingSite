@@ -1,13 +1,34 @@
 import React from 'react';
 import './cart.css';
 import { useVariableContext } from '../../context/VariableContext';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
+import useUpdateCart from '../../hooks/useUpdateCart';
 
-const CartItem = ({ item }) => {
-  const { setCartItems } = useVariableContext();
+const CartItem = ({ itemId }) => {
+  const { cartItems, setCartItems } = useVariableContext();
+  const { updateCartItems } = useUpdateCart();
+  const item = cartItems.find(cartItem => cartItem.id === itemId);
 
   const removeItem = () => {
-    setCartItems(prevItems => prevItems.filter(cartItem => cartItem.id !== item.id));
+    const updatedCartItems = cartItems.filter(cartItem => cartItem.id !== itemId);
+    updateCartItems(updatedCartItems);
+  };
+
+  const incrementQuantity = () => {
+    const updatedCartItems = cartItems.map(cartItem =>
+      cartItem.id === itemId ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+    );
+    updateCartItems(updatedCartItems);
+  };
+
+  const decrementQuantity = () => {
+    const updatedCartItems = cartItems.map(cartItem =>
+      cartItem.id === itemId && cartItem.quantity > 1
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+
+    updateCartItems(updatedCartItems); 
   };
 
   return (
@@ -19,7 +40,16 @@ const CartItem = ({ item }) => {
         <div className="item-options">
           <p>Color: {item.color}</p>
           <p>Size: {item.size}</p>
-          <p>Quantity: {item.quantity}</p>
+          <p>
+            Quantity: 
+            <button onClick={decrementQuantity} className="quantity-button">
+              <FaMinus />
+            </button>
+            {item.quantity}
+            <button onClick={incrementQuantity} className="quantity-button">
+              <FaPlus />
+            </button>
+          </p>
         </div>
       </div>
       <div className="item-price">₹ {item.price.toFixed(2)}</div>

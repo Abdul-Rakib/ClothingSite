@@ -8,9 +8,9 @@ import useGetCartItems from '../../hooks/useGetCartItems';
 import { usePostOrders } from '../../hooks/usePostOrders';
 
 export default function Cart() {
-    const { cartItems, couponDiscount } = useVariableContext(); // Get cartItems from context
-    const { loading, error } = useGetCartItems(1); // Call hook to fetch items
-    const { createNewOrder, successMsg, loading: orderLoading, error: orderError } = usePostOrders(); // Call usePostOrders hook at the top level
+    const { cartItems, couponDiscount } = useVariableContext();
+    const { loading, error } = useGetCartItems();
+    const { createNewOrder, successMsg, loading: orderLoading, error: orderError } = usePostOrders();
 
     if (loading) {
         return <div>Loading cart items...</div>;
@@ -25,9 +25,8 @@ export default function Cart() {
     const shippingCost = totalItems !== 0 ? 99 : 0;
     const totalPrice = subtotal + shippingCost - couponDiscount;
 
-    // handleCheckout now uses createNewOrder from the usePostOrders hook
     const handleCheckout = () => {
-        createNewOrder(cartItems); // Pass cart items to create the order
+        createNewOrder(cartItems);
     };
 
     return (
@@ -39,10 +38,7 @@ export default function Cart() {
                         <div>Your cart is empty!</div>
                     ) : (
                         cartItems.map((item) => (
-                            <CartItem
-                                key={item.id}
-                                item={item}
-                            />
+                            <CartItem key={item.id} itemId={item.id} /> // Pass only item ID
                         ))
                     )}
                 </div>
@@ -61,13 +57,8 @@ export default function Cart() {
                     discount={couponDiscount}
                     totalPrice={totalPrice}
                 />
-
-                {/* Display error message above the MAKE PAYMENT button */}
                 {orderError && <div className="error">{orderError}</div>}
-                
-                {/* Display success message */}
                 {successMsg && <div className="success">{successMsg}</div>}
-
                 <Link to="/confirmation">
                     <button className="checkout-button" onClick={handleCheckout} disabled={orderLoading}>
                         {orderLoading ? "Processing..." : "MAKE PAYMENT"}

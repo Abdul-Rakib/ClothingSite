@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import './productpage.css';
-import { useVariableContext } from '../../context/VariableContext';
 import { useGetProduct } from '../../hooks/useGetProduct';
 import { useSaveCartItem } from '../../hooks/usePostCart';
 import ColorOption from './colorOption';
@@ -10,10 +9,9 @@ import ImageGallery from './imageGallery';
 
 export default function ProductPage() {
   const { id } = useParams();
-  const {user} = useVariableContext();
   
   const { product, loading, error } = useGetProduct(id);
-  const { saveCartItem,successMsg, loading: savingLoading, error: savingError } = useSaveCartItem();
+  const { saveCartItem, successMsg, loading: savingLoading, error: savingError } = useSaveCartItem();
   const navigate = useNavigate();
 
   const [selectedColor, setSelectedColor] = useState('');
@@ -28,16 +26,14 @@ export default function ProductPage() {
 
   const handleAddToCart = async () => {
     setErrorMsg(''); // Clear previous error message
-
+  
     if (!selectedColor || !selectedSize) {
       setErrorMsg('Please select both a color and size before adding to the cart.');
       return;
     }
-
+  
     const newItem = {
       id: product.id,
-      userId: user.id,
-      email: user.email,
       name: product.name,
       price: product.price,
       quantity: 1,
@@ -46,19 +42,17 @@ export default function ProductPage() {
       category: product.category,
       description: product.description,
       images: product.images,
-      isInCart: true,
     };
-
+  
     await saveCartItem(newItem);
-    
+  
     if (savingError) {
-      setErrorMsg(savingError); // Display error message from saveCartItem
-    } 
-    // else {
-    //   setCartItems((prevItems) => [...prevItems, newItem]);
+      setErrorMsg(savingError); 
+    } else {
       setIsInCart(true);
-    // }
+    }
   };
+  
 
   const handleButtonClick = () => {
     if (isInCart) {
@@ -67,12 +61,6 @@ export default function ProductPage() {
       handleAddToCart(); // Call the function to add to cart
     }
   };
-
-  // useEffect(() => {
-  //   if (cartItems.length) {
-  //     // console.log("Cart updated:", cartItems);
-  //   }
-  // }, [cartItems]);
 
   if (loading) return <div>Loading product...</div>;
   if (error) return <div>Errorx loading product: {error}</div>;
@@ -122,7 +110,7 @@ export default function ProductPage() {
         {/* Error message display */}
         {(errorMsg || savingError) && (
           <div className="error-message">
-            {errorMsg || savingError} {/* Display error message if present */}
+            {errorMsg || savingError}
           </div>
         )}
         {/* Success message display */}
@@ -130,7 +118,7 @@ export default function ProductPage() {
 
         <button
           className="add-to-cart-button"
-          onClick={handleButtonClick} // Use the new click handler
+          onClick={handleButtonClick}
           disabled={savingLoading}
         >
           {savingLoading ? 'Adding...' : (isInCart ? 'Go to Cart' : 'Add to Cart')}
