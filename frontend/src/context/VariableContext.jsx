@@ -3,7 +3,8 @@ import { createContext, useContext, useState } from "react";
 const VariableContext = createContext();
 
 export const VariableContextProvider = ({ children }) => {
-  const host = "http://localhost:8080";
+  // const host = "http://localhost:8080";
+    const host = "https://clothingsite-od69.onrender.com";
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem("isLoggedIn") === "true";
