@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaBars, FaTimes, FaUser, FaHeart, FaPhoneAlt, FaHome } from 'react-icons/fa'; // Import FaHome
-import './Navbar.css';
+import './navbar.css';
 import { useVariableContext } from '../../context/VariableContext';
 
 const BottomNavbar = () => {
