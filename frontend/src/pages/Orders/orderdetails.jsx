@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation to access state
-import './orderDetails.css';
+import './orderdetails.css';
 
 const OrderDetails = () => {
   const location = useLocation();
